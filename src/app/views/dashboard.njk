@@ -1,0 +1,41 @@
+{% extends "_layout/default.njk" %}
+
+{% block body %}
+
+  <div class="content">
+    <strong>Olá, {{user.name}}</strong>
+
+
+    {% if user.provider === false  %}
+    <p>Inicie um agendamento escolhendo um profissional abaixo:</p>
+
+    <ul class="providers">
+      {% for user in users %}
+        <li class="provider">
+          <div>
+            <img src="/files/{{ user.avatar }}" />
+            <strong>{{ user.name }}</strong>
+          </div>
+          <a href="/app/appointments/new/{{ user.id }}">+</a>
+        </li>
+      {% endfor %}
+    </ul>
+
+    {% else %}
+      <p>Escolha um cliente para exibir seu detalhamento.:</p>
+      <ul class="clients">
+        {% for user in users %}
+          <li class="client">
+            <div>
+              <img src="/files/{{ user.avatar }}" />
+              <strong>{{ user.name }}</strong>
+            </div>
+            <a href="/app/appointments/schedules/{{ user.id }}">+</a>
+          </li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+    <a href="/app/logout" class="logout">Sair</a>
+  </div>
+
+{% endblock %}

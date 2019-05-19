@@ -1,0 +1,36 @@
+{% extends "_layout/default.njk" %}
+
+{% block body %}
+
+  <div class="content">
+    <strong>Acompanhamento de Horários</strong>
+
+    <div class="client">
+      <div>
+        <img src="/files/{{ userData.avatar}}" />
+        <strong> {{ userData.name }} </strong>
+      </div>
+    </div>
+    <div>
+        <p>E-mail.: {{ userData.email }}</p>
+    </div>
+    <form action="/app/dashboard">
+      <center><strong>Horários</strong><center>
+      <div id="hours"></div>
+    </form>
+    <button type="submit">Voltar</button>
+  </div>
+
+  <script type="text/javascript">
+    hours(Date.now())
+
+    function hours(date) {
+        fetch('/app/schedules/userSchedules/{{ userData.id }}').then(function(response){
+          response.text().then(function (html) {
+            document.getElementById('hours').innerHTML = html
+          })
+        })
+      }
+  </script>
+
+{% endblock %}
